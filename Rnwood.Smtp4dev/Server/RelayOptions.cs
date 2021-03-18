@@ -5,9 +5,11 @@
         public bool IsEnabled => SmtpServer != string.Empty;
 
         public string SmtpServer { get; set; } = string.Empty;
-
+        
         public int SmtpPort { get; set; } = 25;
-
+        
+        public bool ValidateSSLCertificate { get; set; } = true;
+        
         public string[] AutomaticEmails { get; set; } = new string[0];
 
         public string SenderAddress { get; set; } = "";

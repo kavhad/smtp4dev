@@ -1,13 +1,11 @@
 using System;
 using System.IO;
-using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
 using Rnwood.Smtp4dev.DbModel;
 using Rnwood.Smtp4dev.Hubs;
 using Rnwood.Smtp4dev.Server;
@@ -69,6 +67,10 @@ namespace Rnwood.Smtp4dev
                 }
 
                 SmtpClient result = new SmtpClient();
+                
+                if (!relayOptions.ValidateSSLCertificate) //
+                    result.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+                
                 result.Connect(relayOptions.SmtpServer, relayOptions.SmtpPort);
 
                 if (!string.IsNullOrEmpty(relayOptions.Login))
